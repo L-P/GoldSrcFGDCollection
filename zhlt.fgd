@@ -380,3 +380,91 @@
 		1: "Yes"
 	]
 ]
+
+@BaseClass = ZHLTCopyTarget
+[
+	zhlt_usemodel(target_destination) : "ZHLT Template Model Target"
+	zhlt_copylight(target_destination) : "ZHLT Copy Lighting From Target"
+	light_origin(target_destination) : "Light Origin Target"
+]
+
+@BaseClass base(ZHLTCopyTarget) = CompilerSolidClassBase
+[
+	zhlt_noclip(choices) : "ZHLT Noclip" : 0 =
+	[
+		0 : "Solid (default)"
+		1 : "Noclip"
+	]
+	zhlt_lightflags(choices) : "ZHLT Lightflags" : 0 =
+	[
+		0 : "Default"
+		1 : "Embedded Fix"
+		2 : "Opaque (blocks light)"
+		3 : "Opaque + Embedded fix"
+		6 : "Opaque + Concave Fix"
+	]
+	zhlt_invisible(choices) : "ZHLT Invisible" : 0 =
+	[
+		0 : "Visible (default)"
+		1 : "Invisible"
+	]
+	zhlt_customshadow(string) : "ZHLT Custom Shadow (when opaque)"
+	zhlt_embedlightmap(choices) : "ZHLT Embed Light Map (when translucent)" : 0 =
+	[
+		0 : "No (default)"
+		1 : "Yes"
+	]
+	zhlt_embedlightmapresolution(integer) : "ZHLT Embed Light Map Resolution" : 4
+	_minlight(string) : "Minimum Light Level (0.0 - 1.0)"
+]
+
+@BaseClass = CompilerLightBase
+[
+	_light(color255) : "Brightness" : "255 255 128 200"
+	zhlt_stylecoring(integer) : "Coring (black threshold for named lights)"
+
+	_fade(string) : "ZHLT Fade" : "1.0"
+	_falloff(choices) : "ZHLT Falloff" : 0 =
+	[
+		0 : "Default"
+		1 : "Inverse Linear"
+		2 : "Inverse Square"
+	]
+]
+
+@BaseClass base(CompilerLightBase) = CompilerLightSpotBase
+[
+	_cone(integer) : "Inner (bright) angle" : 30
+	_cone2(integer) : "Outer (fading) angle" : 45
+	pitch(integer) : "Pitch" : -90
+	_sky(choices) : "Is Sky" : 0 =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+]
+
+@PointClass base(CompilerLightBase) iconsprite("sprites/light.spr") = light_environment : "Environment"
+[
+	targetname(target_source) : "Name"
+	angles(choices) : "Pitch Yaw Roll (Y Z X)" : "0 0 0" =
+	[
+		"0 0 0" : "Default (East)"
+		"-90 0 0" : "Up"
+		"90 0 0" : "Down"
+		"0 90 0" : "North"
+		"0 180 0" : "West"
+		"0 -90 0" : "South"
+	]
+
+	pitch(integer) : "Pitch" : -90
+	_spread(integer) : "Spread Angle" : 0 : "Spread angle for soft shadows."
+	_diffuse_light(color255) : "Diffuse Light" : "" : "Diffuse light color."
+	_fake(choices) : "Only Dynamic" : "" =
+	[
+		"" : "No"
+		1  : "Yes"
+	]
+]
+
+@BaseClass = CompilerWorldspawnBase []

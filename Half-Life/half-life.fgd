@@ -10,7 +10,7 @@
 // Worldspawn
 //
 
-@SolidClass = worldspawn : "World entity"
+@SolidClass base(CompilerWorldspawnBase) = worldspawn : "World entity"
 [
 	message(string) : "Map Description / Title"
 	skyname(choices) : "environment map (cl_skyname)" : "desert" =
@@ -66,52 +66,6 @@
 //
 // BaseClasses
 //
-
-@BaseClass = ZHLTCopyTarget
-[
-	zhlt_usemodel(target_destination) : "ZHLT Template Model Target"
-	zhlt_copylight(target_destination) : "ZHLT Copy Lighting From Target"
-	light_origin(target_destination) : "Light Origin Target"
-]
-@BaseClass base(ZHLTCopyTarget) = ZHLT
-[
-	zhlt_noclip(choices) : "ZHLT Noclip" : 0 =
-	[
-		0 : "Solid (default)"
-		1 : "Noclip"
-	]
-	zhlt_lightflags(choices) : "ZHLT Lightflags" : 0 =
-	[
-		0 : "Default"
-		1 : "Embedded Fix"
-		2 : "Opaque (blocks light)"
-		3 : "Opaque + Embedded fix"
-		6 : "Opaque + Concave Fix"
-	]
-	zhlt_invisible(choices) : "ZHLT Invisible" : 0 =
-	[
-		0 : "Visible (default)"
-		1 : "Invisible"
-	]
-	zhlt_customshadow(string) : "ZHLT Custom Shadow (when opaque)"
-	zhlt_embedlightmap(choices) : "ZHLT Embed Light Map (when translucent)" : 0 =
-	[
-		0 : "No (default)"
-		1 : "Yes"
-	]
-	zhlt_embedlightmapresolution(integer) : "ZHLT Embed Light Map Resolution" : 4
-	_minlight(string) : "Minimum Light Level (0.0 - 1.0)"
-]
-@BaseClass = ZHLT_point
-[
-	_fade(string) : "ZHLT Fade" : "1.0"
-	_falloff(choices) : "ZHLT Falloff" : 0 =
-	[
-		0 : "Default"
-		1 : "Inverse Linear"
-		2 : "Inverse Square"
-	]
-]
 
 @BaseClass = Appearflags
 [
@@ -303,7 +257,7 @@
 	]
 ]
 
-@BaseClass base(Targetname, Targetx, Global, RenderFields, Effects, ZHLT) = Breakable
+@BaseClass base(Targetname, Targetx, Global, RenderFields, Effects, CompilerSolidClassBase) = Breakable
 [
 	health(integer) : "Strength" : 1
 	material(choices) : "Material type" : 0 =
@@ -360,40 +314,6 @@
 	]
 ]
 
-@BaseClass = Light
-[
-	_light(color255) : "Brightness" : "255 255 128 200"
-	style(choices) : "Appearance" : 0 =
-	[
-		0 : "Normal"
-		10: "Fluorescent flicker"
-		2 : "Slow, strong pulse"
-		11: "Slow pulse, noblack"
-		5 : "Gentle pulse"
-		1 : "Flicker A"
-		6 : "Flicker B"
-		3 : "Candle A"
-		7 : "Candle B"
-		8 : "Candle C"
-		4 : "Fast strobe"
-		9 : "Slow strobe"
-	]
-	pattern(string) : "Custom Appearance"
-	zhlt_stylecoring(integer) : "Coring (black threshold for named lights)"
-]
-
-@BaseClass = LightSpot
-[
-	_cone(integer) : "Inner (bright) angle" : 30
-	_cone2(integer) : "Outer (fading) angle" : 45
-	pitch(integer) : "Pitch" : -90
-	_sky(choices) : "Is Sky" : 0 =
-	[
-		0 : "No"
-		1 : "Yes"
-	]
-]
-
 @BaseClass = LockedSounds
 [
 	locked_sound(choices) : "Locked Sound" : 0 =
@@ -447,7 +367,7 @@
 	]
 ]
 
-@BaseClass base(Targetname, Targetx, Master, Appearflags, RenderFields, Effects, ZHLT, Global, Angles, LockedSounds) = Door
+@BaseClass base(Targetname, Targetx, Master, Appearflags, RenderFields, Effects, CompilerSolidClassBase, Global, Angles, LockedSounds) = Door
 [
 	speed(integer) : "Speed" : 100
 	movesnd(choices) : "Move Sound" : 0 =
@@ -518,7 +438,7 @@
 	]
 ]
 
-@BaseClass base(Targetname, Target, RenderFields, Effects, Global, Angles, ZHLT) = BaseTank
+@BaseClass base(Targetname, Target, RenderFields, Effects, Global, Angles, CompilerSolidClassBase) = BaseTank
 [
 	spawnflags(flags) =
 	[
@@ -592,7 +512,7 @@
 	volume(string) : "Sound Volume 0.0 - 1.0" : "0.85"
 ]
 
-@BaseClass base(Targetname, RenderFields, Global, PlatSounds, ZHLT) = Trackchange
+@BaseClass base(Targetname, RenderFields, Global, PlatSounds, CompilerSolidClassBase) = Trackchange
 [
 	height(integer) : "Travel altitude" : 0
 	spawnflags(flags) =
@@ -699,7 +619,7 @@
 	]
 ]
 
-@SolidClass base(Targetname, Target, Master, RenderFields, ZHLT) = button_target : "Target Button"
+@SolidClass base(Targetname, Target, Master, RenderFields, CompilerSolidClassBase) = button_target : "Target Button"
 [
 	spawnflags(flags) =
 	[
@@ -1094,7 +1014,7 @@
 
 @SolidClass base(Breakable) = func_breakable : "Breakable Object" []
 
-@SolidClass base(Global, Targetname, Targetx, RenderFields, Angles, ZHLT, LockedSounds) = func_button : "Button"
+@SolidClass base(Global, Targetname, Targetx, RenderFields, Angles, CompilerSolidClassBase, LockedSounds) = func_button : "Button"
 [
 	speed(integer) : "Speed" : 5
 	health(integer) : "Health (shootable if > 0)"
@@ -1127,7 +1047,7 @@
 	]
 ]
 
-@SolidClass base(Global,RenderFields, Targetname, Angles, ZHLT) = func_conveyor : "Conveyor Belt"
+@SolidClass base(Global,RenderFields, Targetname, Angles, CompilerSolidClassBase) = func_conveyor : "Conveyor Belt"
 [
 	spawnflags(flags) =
 	[
@@ -1151,12 +1071,12 @@
 	distance(integer) : "Distance (deg)" : 90
 ]
 
-@SolidClass base(Appearflags, RenderFields, ZHLT) = func_friction : "Surface with a change in friction"
+@SolidClass base(Appearflags, RenderFields, CompilerSolidClassBase) = func_friction : "Surface with a change in friction"
 [
 	modifier(integer) : "Percentage of standard (0 - 100)" : 15
 ]
 
-@SolidClass base(Targetname, RenderFields, Global, ZHLT) = func_guntarget : "Moving platform"
+@SolidClass base(Targetname, RenderFields, Global, CompilerSolidClassBase) = func_guntarget : "Moving platform"
 [
 	speed(integer) : "Speed (units per second)" : 100
 	target(target_destination) : "First stop target"
@@ -1164,19 +1084,14 @@
 	health(integer) : "Damage to Take" : 0
 ]
 
-@SolidClass base(Global, RenderFields, ZHLT) = func_healthcharger: "Health Charger" []
+@SolidClass base(Global, RenderFields, CompilerSolidClassBase) = func_healthcharger: "Health Charger" []
 
-@SolidClass base(Targetname, RenderFields, Effects, ZHLT) = func_illusionary : "Fake Wall/Light"
+@SolidClass base(Targetname, RenderFields, Effects, CompilerSolidClassBase) = func_illusionary : "Fake Wall/Light"
 [
 	skin(choices) : "Contents" : -1 =
 	[
 		-1: "Empty"
 		-7: "Volumetric Light"
-	]
-	zhlt_noclip(choices) : "Generate Cliphulls" : 1 =
-	[
-		0 : "Yes"
-		1 : "No"
 	]
 ]
 
@@ -1198,7 +1113,7 @@
 	m_iszYController(target_destination) : "Y Controller"
 ]
 
-@SolidClass base(Global, Appearflags, Targetname, RenderFields, Angles, ZHLT) = func_pendulum : "Swings back and forth"
+@SolidClass base(Global, Appearflags, Targetname, RenderFields, Angles, CompilerSolidClassBase) = func_pendulum : "Swings back and forth"
 [
 	speed(integer) : "Speed" : 100
 	distance(integer) : "Distance (deg)" : 90
@@ -1214,7 +1129,7 @@
 	]
 ]
 
-@SolidClass base(Targetname, Global, RenderFields, PlatSounds, ZHLT) = func_plat : "Elevator"
+@SolidClass base(Targetname, Global, RenderFields, PlatSounds, CompilerSolidClassBase) = func_plat : "Elevator"
 [
 	spawnflags(flags) =
 	[
@@ -1224,7 +1139,7 @@
 	speed(integer) : "Speed" : 50
 ]
 
-@SolidClass base(Targetname, Global, RenderFields, PlatSounds, Angles, ZHLT) = func_platrot : "Moving Rotating platform"
+@SolidClass base(Targetname, Global, RenderFields, PlatSounds, Angles, CompilerSolidClassBase) = func_platrot : "Moving Rotating platform"
 [
 	spawnflags(flags) =
 	[
@@ -1254,9 +1169,9 @@
 	buoyancy(integer) : "Buoyancy" : 20
 ]
 
-@SolidClass base(Global, RenderFields, ZHLT) = func_recharge: "Suit Charger" []
+@SolidClass base(Global, RenderFields, CompilerSolidClassBase) = func_recharge: "Suit Charger" []
 
-@SolidClass base(Targetname, Global, RenderFields, Angles, ZHLT) = func_rot_button : "Rotating Button"
+@SolidClass base(Targetname, Global, RenderFields, Angles, CompilerSolidClassBase) = func_rot_button : "Rotating Button"
 [
 	target(target_destination) : "Targetted object"
 	// changetarget will change the button's target's TARGET field to the button's changetarget.
@@ -1289,7 +1204,7 @@
 	]
 ]
 
-@SolidClass base(Targetname, Global, RenderFields, Angles, ZHLT) = func_rotating : "Rotating Object"
+@SolidClass base(Targetname, Global, RenderFields, Angles, CompilerSolidClassBase) = func_rotating : "Rotating Object"
 [
 	speed(integer)	: "Rotation Speed" : 0
 	volume(integer) : "Volume (10 = loudest)" : 10
@@ -1353,7 +1268,7 @@
 
 @SolidClass base(Trackchange) = func_trackchange : "Train track changing platform" []
 
-@SolidClass base(Targetname, Global, RenderFields, ZHLT) = func_tracktrain : "Track Train"
+@SolidClass base(Targetname, Global, RenderFields, CompilerSolidClassBase) = func_tracktrain : "Track Train"
 [
 	spawnflags(flags) =
 	[
@@ -1387,7 +1302,7 @@
 	target(target_destination) : "Train Name"
 ]
 
-@SolidClass base(Targetname, Angles, RenderFields, ZHLT) = func_vehicle : "Drivable Vehicles"
+@SolidClass base(Targetname, Angles, RenderFields, CompilerSolidClassBase) = func_vehicle : "Drivable Vehicles"
 [
 	spawnflags(flags) =
 	[
@@ -1420,16 +1335,12 @@
 	_minlight(string) : "Minimum light level" : "0"
 ]
 
-@SolidClass = func_vehiclecontrols : "Vehicle Controls"
+@SolidClass base(CompilerSolidClassBase)  = func_vehiclecontrols : "Vehicle Controls"
 [
 	target(target_destination) : "Vehicle Name"
-	zhlt_invisible(choices) : "Invisible" : 1 =
-	[
-		1: "yes"
-	]
 ]
 
-@SolidClass base(Targetname, Global, PlatSounds, RenderFields, ZHLT) = func_train : "Moving platform"
+@SolidClass base(Targetname, Global, PlatSounds, RenderFields, CompilerSolidClassBase) = func_train : "Moving platform"
 [
 	target(target_destination) : "First stop target"
 	speed(integer) : "Speed (units per second)" : 64
@@ -1442,7 +1353,7 @@
 	]
 ]
 
-@SolidClass base(Targetname, Appearflags, RenderFields, Effects, Global, ZHLT) = func_wall : "Wall" []
+@SolidClass base(Targetname, Appearflags, RenderFields, Effects, Global, CompilerSolidClassBase) = func_wall : "Wall" []
 
 @SolidClass base(func_wall) = func_wall_toggle : "Toggleable geometry"
 [
@@ -1681,7 +1592,27 @@
 // Lights
 //
 
-@PointClass iconsprite("sprites/light.spr") base(Targetname, Target, Light, ZHLT_point) = light : "Invisible lightsource"
+@BaseClass = LightStyle
+[
+	style(choices) : "Appearance" : 0 =
+	[
+		0 : "Normal"
+		10: "Fluorescent flicker"
+		2 : "Slow, strong pulse"
+		11: "Slow pulse, noblack"
+		5 : "Gentle pulse"
+		1 : "Flicker A"
+		6 : "Flicker B"
+		3 : "Candle A"
+		7 : "Candle B"
+		8 : "Candle C"
+		4 : "Fast strobe"
+		9 : "Slow strobe"
+	]
+	pattern(string) : "Custom Appearance"
+]
+
+@PointClass iconsprite("sprites/light.spr") base(Targetname, Target, CompilerLightBase, LightStyle) = light : "Invisible lightsource"
 [
 	spawnflags(flags) =
 	[
@@ -1689,7 +1620,7 @@
 	]
 ]
 
-@PointClass iconsprite("sprites/light.spr") base(Targetname, Target, Angles, LightSpot, ZHLT_point, Light) = light_spot : "Spotlight"
+@PointClass iconsprite("sprites/light.spr") base(Targetname, Target, Angles, CompilerLightSpotBase, LightStyle) = light_spot : "Spotlight"
 [
 	spawnflags(flags) =
 	[
@@ -1697,20 +1628,7 @@
 	]
 ]
 
-@PointClass base(Targetname, Angles, ZHLT_point) iconsprite("sprites/light.spr") = light_environment : "Environment"
-[
-	pitch(integer) : "Pitch" : -90
-	_light(color255) : "Brightness" : "255 255 128 200"
-	_spread(integer) : "Spread Angle" : 0 : "Spread angle for soft shadows."
-	_diffuse_light(color255) : "Diffuse Light" : "" : "Diffuse light color."
-	_fake(choices) : "Only Dynamic" : "" =
-	[
-		"" : "No"
-		1  : "Yes"
-	]
-]
-
-@SolidClass base(MomentaryDoor, ZHLT) = momentary_door : "Momentary/Continuous door"
+@SolidClass base(MomentaryDoor, CompilerSolidClassBase) = momentary_door : "Momentary/Continuous door"
 [
 	spawnflags(flags) =
 	[
@@ -1718,7 +1636,7 @@
 	]
 ]
 
-@SolidClass base(Targetname, Target, Angles, RenderFields, ZHLT) = momentary_rot_button : "Direct wheel control"
+@SolidClass base(Targetname, Target, Angles, RenderFields, CompilerSolidClassBase) = momentary_rot_button : "Direct wheel control"
 [
 	speed(integer) : "Speed" : 50
 	master(string) : "Master"
