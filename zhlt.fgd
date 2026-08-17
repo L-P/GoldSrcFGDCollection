@@ -10,7 +10,6 @@
 // • Added info_compile_parameters
 //
 
-
 // light_shadow
 // It creates toggleable shadow for func_door, func_breakable, ...
 @PointClass color(255 255 0) = light_shadow : "Dynamic shadow control"
@@ -121,7 +120,7 @@
 	"" : "Off"
     ]
     wadconfig(string) : "Custom Wad Configuration"
-    noclipeconomy(choices) : "Strip Uneeded Clipnodes?" : "" = 
+    noclipeconomy(choices) : "Strip Uneeded Clipnodes?" : "" =
     [
         "" : "Yes"
         1 : "No"
@@ -148,7 +147,7 @@
 // BSP
 	hlbsp(choices) : "Run BSP Stage" : 1 =
     [
-        "" : "Off" 
+        "" : "Off"
         1 : "Normal"
         2 : "Leakonly"
     ]
@@ -165,11 +164,11 @@
 	]
 
 // VIS
-	hlvis(choices) : "Run VIS Stage" : 2 = 
-    [ 
+	hlvis(choices) : "Run VIS Stage" : 2 =
+    [
         "" : "Off"
         1 : "Fast"
-        2 : "Normal" 
+        2 : "Normal"
         3 : "Full"
     ]
 
